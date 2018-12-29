@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+// dùng kiểu const k dùng var nữa a nha
 var ObjectId = mongoose.Schema.Types.ObjectId;
 let groupSchema = new Schema({
     name: {
@@ -11,18 +12,22 @@ let groupSchema = new Schema({
     lastMessage: {
         type: ObjectId,
     },
+// members là một mảng em nghĩ a nên viết kiểu này members: [{ type: ObjectId }]
     members: {
         type: [ObjectId],
     },
     author: {
     	type:  ObjectId,
     },
+// chỗ này em nghĩ a k nên để null mà nên để default: ''
     deletedAt: {
         type: Date,
         default: null
     }
     // deletedAt: Date
 });
+
+// Phần này em k biết anh dùng nó làm gì? phía trên mình xử lí rồi mà
 groupSchema.pre('find', function() {
 	const query = this.getQuery();
     query['$or'] = [
@@ -45,6 +50,8 @@ groupSchema.post('findOne', function(doc) {
 	// doc.version = 1;
   console.log('post find is executing...');
 });
+/////////***********************************//////
+
 // groupSchema.pre('remove', function (next) {
 
 //     const currentDate = new Date();
@@ -59,6 +66,7 @@ groupSchema.post('findOne', function(doc) {
 //   await doStuff();
 //   await doMoreStuff();
 // });
+// chỗ này 'groups' anh nhé
 let Group = mongoose.model('Group', groupSchema);
 
 export default Group;
